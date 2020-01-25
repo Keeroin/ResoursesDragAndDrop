@@ -7,6 +7,7 @@ public class GridManager : MonoBehaviour
 {
     PopulateGrid gridComponent;
     public Item[,] gridArray = new Item[5, 5];
+    public List<ItemIdentifier> II;
 
     void Start()
     {

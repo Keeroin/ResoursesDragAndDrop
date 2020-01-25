@@ -39,19 +39,23 @@ public class PopulateGrid : MonoBehaviour
                 itemObj.transform.localPosition = new Vector3((side + offset) * x, (side + offset) * y);
 
                 if (fillArray)
-                    FillItemArray(itemObj, new Vector2Int(x, y));
+                    AddItemInArray(itemObj, new Vector2Int(x, y));
             }
         }
     }
 
-    void FillItemArray(GameObject itemObj, Vector2Int posInGrid)
+    void AddItemInArray(GameObject itemObj, Vector2Int posInGrid)
     {
-        Item currItem;
-        currItem = itemObj.GetComponent<Item>();
+        Item currItem = itemObj.GetComponent<Item>();
         currItem.posInGrid = posInGrid;
         currItem.posInLocalSpace = itemObj.transform.localPosition;
 
+        currItem.item = gridManager.II[0];
+        currItem.name = gridManager.II[0].itemType;
+        currItem.GetComponent<Image>().sprite = gridManager.II[0].sprite;
+
         gridManager.gridArray[posInGrid.x, posInGrid.y] = currItem;
     }
+
 
 }

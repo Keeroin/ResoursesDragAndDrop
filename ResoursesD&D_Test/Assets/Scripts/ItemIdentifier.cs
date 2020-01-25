@@ -9,6 +9,7 @@ public class ItemIdentifier : ScriptableObject, IComparable
 {
     public Sprite sprite;
     public string itemType;
+    public int level;
 
     public int CompareTo(object obj)
     {

@@ -5,17 +5,7 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] ItemIdentifier item;
-
-    Image itemImage;
+    public ItemIdentifier item;
     public Vector2Int posInGrid;
     public Vector2 posInLocalSpace;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        itemImage = GetComponent<Image>();
-        itemImage.sprite = item.sprite;
-    }
-
 }

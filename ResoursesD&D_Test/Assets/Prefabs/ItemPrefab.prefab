@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6381537732786039410}
   - component: {fileID: 4230342105421415645}
   m_Layer: 5
-  m_Name: IronBar
+  m_Name: ItemPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,8 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b7bda2e65eded648812a4cb8db7482e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 4b3350d3074a0404cbdc6c826646c7e4, type: 2}
+  item: {fileID: 0}
   posInGrid: {x: 0, y: 0}
+  posInLocalSpace: {x: 0, y: 0}
 --- !u!222 &6381537732786039410
 CanvasRenderer:
   m_ObjectHideFlags: 0

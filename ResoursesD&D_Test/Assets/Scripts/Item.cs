@@ -8,7 +8,8 @@ public class Item : MonoBehaviour
     [SerializeField] ItemIdentifier item;
 
     Image itemImage;
-    public Vector2 posInGrid;
+    public Vector2Int posInGrid;
+    public Vector2 posInLocalSpace;
 
     // Start is called before the first frame update
     void Start()

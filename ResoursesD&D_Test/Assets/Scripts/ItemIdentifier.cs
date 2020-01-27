@@ -2,22 +2,22 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Item Identifier", menuName = "Item Identifier")]
-public class ItemIdentifier : ScriptableObject, IComparable
+public class ItemIdentifier : ScriptableObject, IEquatable<ItemIdentifier>
 {
     public Sprite sprite;
     public string itemType;
+    public int typeIndex;
     public int level;
 
-    public int CompareTo(object obj)
+    public bool Equals(ItemIdentifier other)
     {
-        if (obj == null) return 1;
+        if (other == null) return false;
 
-        ItemIdentifier itemIndetifier = obj as ItemIdentifier;
+        ItemIdentifier itemIndetifier = other as ItemIdentifier;
         if (itemIndetifier != null)
-            return this.itemType.CompareTo(itemIndetifier.itemType);
+            return itemType.Equals(itemIndetifier.itemType) && level == itemIndetifier.level;
         else
             throw new ArgumentException("Object is not a Item Identifier");
     }

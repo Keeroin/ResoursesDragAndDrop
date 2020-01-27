@@ -368,7 +368,6 @@ GameObject:
   - component: {fileID: 729026547}
   - component: {fileID: 729026545}
   - component: {fileID: 729026548}
-  - component: {fileID: 729026546}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -412,18 +411,8 @@ MonoBehaviour:
   fillArray: 1
   offset: 2
   side: 80
---- !u!114 &729026546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729026543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdf86f40139d0314d96c661e811ad0f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  countOfCells: 5
+  endPoint: {x: 0, y: 0, z: 0}
 --- !u!222 &729026547
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -444,8 +433,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9625a219bb162fa45ad7deacda8fd96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  II:
-  - {fileID: 11400000, guid: 6ed66d6abce94584481ca454cf365ca7, type: 2}
+  itemsSelectionList:
+    itemTypes:
+    - items:
+      - {fileID: 11400000, guid: 19c6970888634cb41a8348e262f7de30, type: 2}
+    - items:
+      - {fileID: 11400000, guid: 6ed66d6abce94584481ca454cf365ca7, type: 2}
+      - {fileID: 11400000, guid: 369cecade823d2a4ab66b3039877cce3, type: 2}
+      - {fileID: 11400000, guid: 2f43b457859e432439ed6f3f8abca63e, type: 2}
+    - items:
+      - {fileID: 11400000, guid: 4b3350d3074a0404cbdc6c826646c7e4, type: 2}
+      - {fileID: 11400000, guid: b3e944ead0bbacd49bb6b088c8562caa, type: 2}
+      - {fileID: 11400000, guid: e5621c2020d076141aae5d8c9b74a6ff, type: 2}
+    - items:
+      - {fileID: 11400000, guid: c680e4a415dd8fc4c8e49e52e51019cb, type: 2}
+      - {fileID: 11400000, guid: 4da0110915f130c478e6925abfe5aaa5, type: 2}
+      - {fileID: 11400000, guid: 35a28ae061671d5449a1eb72e0890d51, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.75226945, g: 0.7698175, b: 0.990566, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -756,7 +759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.87131524, g: 0.60960305, b: 0.9716981, a: 0.8156863}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -961,6 +964,8 @@ MonoBehaviour:
   fillArray: 1
   offset: 2
   side: 80
+  countOfCells: 5
+  endPoint: {x: 0, y: 0, z: 0}
 --- !u!222 &2121953568
 CanvasRenderer:
   m_ObjectHideFlags: 0

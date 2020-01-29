@@ -9,14 +9,20 @@ public class GridManager : MonoBehaviour
     public ItemsSelectionList itemsSelectionList = new ItemsSelectionList();
     public Vector3 halfCellSize => gridComp.cellSize * .5f * Vector2.one;
 
-    PopulateGrid gridComp;
     Item[,] gridArray = new Item[5, 5];
     const int maxLevel = 2;
+    const int scoreAddPoints = 10;
+
+    PopulateGrid gridComp;
+    ScoreBehaviour scoreBehaviour;
 
     void Start()
     {
         gridComp = GetComponent<PopulateGrid>();
+        scoreBehaviour = GameObject.Find("Score").GetComponent<ScoreBehaviour>();
     }
+
+    public Item[,] items => gridArray;
 
     public void SetItemInArray(Vector2Int posInGrid, Item item)
     {
@@ -36,7 +42,7 @@ public class GridManager : MonoBehaviour
 
     public bool IsItemEmpty(Item item)
     {
-        return item.itemIdentifier.typeIndex == 0;
+        return item.itemIdentifier.itemType == 0;
     }
 
     public bool IsItemsAreEqual(Item item, Vector3 otherItemPos)
@@ -50,11 +56,6 @@ public class GridManager : MonoBehaviour
         return new Vector2Int((int)itemLocalPos.x / gridComp.cellSize, (int)itemLocalPos.y / gridComp.cellSize);
     }
 
-    public Vector3 GetItemLocalPositionInGrid(Item item)
-    {
-        return GetItemLocalPositionInGrid(item.posInGrid);
-    }
-
     public Vector3 GetItemLocalPositionInGrid(Vector2Int itemPosInGrid)
     {
         return new Vector3(itemPosInGrid.x * gridComp.cellSize, itemPosInGrid.y * gridComp.cellSize);
@@ -62,26 +63,39 @@ public class GridManager : MonoBehaviour
 
     public void ClearItem(Item item)
     {
-        item.ClearItem(GetEmptyItemIdentifier());
+        ChangeItemIndexInArray(item, item.posInGrid);
+        item.ClearItem(item.posInGrid, GetEmptyItemIdentifier());
     }
 
     public void UpgradeItem(Vector3 itemPos)
     {
-        Item item = GetItemFromLocalPos(itemPos);
+        UpgradeItem(GetItemFromLocalPos(itemPos));
+    }
+
+    public void UpgradeItem(Item item)
+    {
         int currLevel = item.itemIdentifier.level;
 
         if(currLevel + 1 > maxLevel) {
             AddScore();
             ClearItem(item);
         }else {
-            item.UpdateData(item.posInGrid, itemsSelectionList.itemTypes[item.itemIdentifier.typeIndex].items[currLevel + 1]);
+            ChangeItemIndexInArray(item, item.posInGrid);
+            item.UpdateData(item.posInGrid, itemsSelectionList.itemTypes[(byte)item.itemIdentifier.itemType].items[currLevel + 1]);
         }
+    }
+
+    void ChangeItemIndexInArray(Item item, Vector2Int gridPos)
+    {
+        gridArray[gridPos.x, gridPos.y] = item;
     }
 
     private void AddScore()
     {
         Debug.Log("Score up!");
         // For adding score points
+
+        scoreBehaviour.AddScore(scoreAddPoints);
     }
 
     public Item GetItemFromLocalPos(Vector3 localPos)
@@ -90,9 +104,32 @@ public class GridManager : MonoBehaviour
         return gridArray[itemGridPos.x, itemGridPos.y];
     }
 
-    // ================Private methods=============================
+    public void SwapItems(Item origin, Vector3 otherItemLocalPos)
+    {
+        SwapItems(origin, GetItemFromLocalPos(otherItemLocalPos));
+    }
 
-    ItemIdentifier GetEmptyItemIdentifier()
+    public void SwapItems(Item origin, Item another)
+    {
+        Vector2Int anotherGridPos = another.posInGrid;
+        Vector2Int originGridPos = origin.posInGrid;
+
+        ItemIdentifier originItId = itemsSelectionList.itemTypes[(byte)origin.itemIdentifier.itemType].items[origin.itemIdentifier.level];
+
+        origin.posInGrid = anotherGridPos;
+        another.posInGrid = originGridPos;
+
+        MoveToGridPos(origin, origin.posInGrid);
+        MoveToGridPos(another, another.posInGrid);
+    }
+
+    public void MoveToGridPos(Item item, Vector2Int posInGrid)
+    {
+        item.transform.localPosition = GetItemLocalPositionInGrid(posInGrid);
+    }
+    
+
+    public ItemIdentifier GetEmptyItemIdentifier()
     {
         return itemsSelectionList.itemTypes[0].items[0];
     }

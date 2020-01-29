@@ -5,6 +5,7 @@ public class PopulateGrid : MonoBehaviour
 {
     [SerializeField] GameObject itemPrefab;
     GridManager gridManager;
+    Generator itemGenerator;
 
     //Params
     [Space]
@@ -16,15 +17,19 @@ public class PopulateGrid : MonoBehaviour
     public int cellSize => (int)(offset + side);
     public int halfCellSize => (int)((offset + side) * .5);
     public Vector3 endPoint;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         endPoint = new Vector3(cellSize * countOfCells, cellSize * countOfCells);
-
         gridManager = GetComponent<GridManager>();
+
         if (gridManager == null)
             fillArray = false;
+
+        if (fillArray) {
+            itemGenerator = GetComponent<Generator>();
+            itemGenerator.gridManager = gridManager;
+        }
 
         Populate();
     }
@@ -42,15 +47,18 @@ public class PopulateGrid : MonoBehaviour
                 itemObj.transform.localPosition = new Vector3(cellSize * x, cellSize * y);
 
                 if (fillArray)
-                    AddItemInArray(itemObj, new Vector2Int(x, y));
+                    AddItemInGrid(itemObj, new Vector2Int(x, y));
             }
         }
     }
 
-    void AddItemInArray(GameObject itemObj, Vector2Int posInGrid)
+    void AddItemInGrid(GameObject itemObj, Vector2Int posInGrid)
     {
         Item currItem = itemObj.GetComponent<Item>();
-        currItem.UpdateData(posInGrid, gridManager.itemsSelectionList.itemTypes[1].items[0]);
+        if (Random.Range(0, 2) == 0)
+            currItem.UpdateData(posInGrid, itemGenerator.ChooseResourse());
+        else
+            currItem.UpdateData(posInGrid, gridManager.GetEmptyItemIdentifier());
 
         gridManager.SetItemInArray(posInGrid, currItem);
     }

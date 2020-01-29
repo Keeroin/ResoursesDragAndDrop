@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Wood2
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: e440382d8dd20d746bde0e8d0331eb04, type: 3}
-  itemType: Woods
+  itemType: 1
   typeIndex: 1
   level: 2

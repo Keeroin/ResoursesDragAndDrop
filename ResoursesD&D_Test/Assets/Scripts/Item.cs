@@ -16,18 +16,30 @@ public class Item : MonoBehaviour, IEquatable<Item>
         return itemIdentifier.Equals(other.itemIdentifier);
     }
 
-    public void UpdateData(Vector2Int posInGrid, ItemIdentifier itemIdentifier)
+    public void UpdateData()
     {
-        this.posInGrid = posInGrid;
-        this.itemIdentifier = itemIdentifier;
-        transform.name = itemIdentifier.itemType;
-        if (image == null) image = GetComponent<Image>();
-        image.sprite = itemIdentifier.sprite;
+        UpdateData(posInGrid, itemIdentifier);
     }
 
-    public void ClearItem(ItemIdentifier emptyII)
+    public void UpdateData(Vector2Int posInGrid, ItemIdentifier itemIdentifier)
+    { 
+        this.posInGrid = posInGrid;
+        this.itemIdentifier = itemIdentifier;
+        transform.name = itemIdentifier.itemType.ToString();
+        if (image == null) image = GetComponent<Image>();
+        image.sprite = itemIdentifier.sprite;
+
+        if (itemIdentifier.itemType == 0) {
+            image.raycastTarget = false;
+            image.color = new Color(1, 1, 1, 0);
+        }else {
+            image.raycastTarget = true;
+            image.color = new Color(1, 1, 1, 1);
+        }
+    }
+
+    public void ClearItem(Vector2Int cellPosInGrid, ItemIdentifier emptyII)
     {
-        UpdateData(posInGrid, emptyII);
-        image.color = new Color(0, 0, 0, 0);
+        UpdateData(cellPosInGrid, emptyII);
     }
 }

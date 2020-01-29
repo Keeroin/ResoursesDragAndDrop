@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Gold2
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 54d47adbdca3a7a4b96e59cef9648642, type: 3}
-  itemType: Gold
+  itemType: 3
   typeIndex: 3
   level: 2

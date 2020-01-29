@@ -38,26 +38,17 @@ public class DragAndDropBehaviour : MonoBehaviour, IDragHandler, IBeginDragHandl
     public void OnEndDrag(PointerEventData eventData)
     {
         transform.SetParent(gridManager.gameObject.transform);
-        
-        print("Before if .... gridPos is " + item.posInGrid);
+
         if (gridManager.IsItemInGridSpace(itemGrabPos) && 
             gridManager.GetGridPosFromItemLocalPos(itemGrabPos) != item.posInGrid &&
             gridManager.IsItemsAreEqual(item, itemGrabPos)) {
-
-            gridManager.UpgradeItem(itemGrabPos);
-            gridManager.ClearItem(item);
-            transform.localPosition = gridManager.GetItemLocalPositionInGrid(item);
-            print("Clears. Grid pos is " + item.posInGrid);
             
-        }else if(gridManager.IsItemEmpty(itemGrabPos)) {
-            Vector2Int gridPos = gridManager.GetGridPosFromItemLocalPos(itemGrabPos);
-            transform.localPosition = gridManager.GetItemLocalPositionInGrid(gridPos);
-            item.UpdateData(gridPos, item.itemIdentifier);
-            print("Just translate");
-        }
-        else {
-            transform.localPosition = gridManager.GetItemLocalPositionInGrid(item);
+            Item upgradeItem = gridManager.GetItemFromLocalPos(itemGrabPos);
+            gridManager.UpgradeItem(upgradeItem);
+            gridManager.ClearItem(item);
+            gridManager.MoveToGridPos(item, item.posInGrid);
+        }else {
+            gridManager.MoveToGridPos(item, item.posInGrid);
         }
     }
-
 }

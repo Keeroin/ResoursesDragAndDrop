@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Iron2
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 878826c921b05194293b7e83057b80af, type: 3}
-  itemType: Iron
+  itemType: 2
   typeIndex: 2
   level: 2
